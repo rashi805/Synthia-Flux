@@ -300,14 +300,4 @@ The system includes comprehensive error handling:
 - [ ] Webhook notifications for new risks
 - [ ] Multi-ecosystem support (PyPI, Maven, etc.)
 
-## 📄 License
 
-ISC
-
-## 🤝 Contributing
-
-Contributions welcome! Please follow standard Git workflow.
-
-## 📞 Support
-
-For issues or questions, please open a GitHub issue.
