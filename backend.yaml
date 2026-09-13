@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synthia-backend
+  namespace: synthia-flux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synthia-backend
+  template:
+    metadata:
+      labels:
+        app: synthia-backend
+    spec:
+      imagePullSecrets:
+        - name: gitlab-regcred 
+      containers:
+        - name: backend
+          image: cr.siemens.com/vinit.tiwari/synthia-flux/backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3001
+          env:
+            - name: NODE_ENV
+              value: "production"
+          envFrom:
+            - secretRef:
+                name: backend-secrets
+          # add other env vars here if your backend needs them
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synthia-backend
+  namespace: synthia-flux
+spec:
+  selector:
+    app: synthia-backend
+  ports:
+    - port: 3001
+      targetPort: 3001
+      protocol: TCP
+  type: ClusterIP

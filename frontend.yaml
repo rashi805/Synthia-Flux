@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synthia-frontend
+  namespace: synthia-flux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synthia-frontend
+  template:
+    metadata:
+      labels:
+        app: synthia-frontend
+    spec:
+      imagePullSecrets:
+        - name: gitlab-regcred 
+      containers:
+        - name: frontend
+          image: cr.siemens.com/vinit.tiwari/synthia-flux/frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synthia-frontend
+  namespace: synthia-flux
+spec:
+  selector:
+    app: synthia-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+  type: ClusterIP
