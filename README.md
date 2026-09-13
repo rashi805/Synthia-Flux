@@ -1,4 +1,4 @@
-# SBOM Risk Analysis Backend
+# SBOM Risk Analysis 
 
 AI-powered SBOM component risk analysis platform backend built with Node.js, Express, PostgreSQL, Qdrant, and OpenAI.
 
